@@ -33,8 +33,27 @@ def play(player1, player2,environment, draw = False):
     player2.update(environment)
     
     
-def state2num(self):
-    pos = 0
+    
+
+def environment:
+    def __init__(self):
+        self.board = np.zeros(LEN,LEN)
+        self.x = -1
+        self.o = 1
+        self.ended = False
+        self.winner = None
+        self.totalStates = 3**(LEN*LEN)
+        
+    def isEmpty(self,i , j):
+        return self.board[i,j] == 0 
+    
+    def reward(self, symbol):
+        if not self.gameOver():
+            return 0
+        return 1 if self.winner = sym else 0
+    
+    def getState(self):
+        pos = 0
     num = 0
     for i in xrange(Len):
         for j in xrange(Len):
@@ -47,3 +66,38 @@ def state2num(self):
             num += (3**pos)*val
             pos += 1
     return num
+        
+def gameOver(self, forceRecalculate = False):
+    if not forceRecalculate  and self.ended:
+        return self.ended
+    
+    for i in xrange(LEN):
+        for player in (self.x,self.o):
+            if self.board[i].sum() ==player*LEN:
+                self.winner = player
+                self.ended = True
+                return True
+    for j in xrange(LEN):
+        for player in (self.x,self.o):
+            if self.board[:j].sum() ==player*LEN:
+                self.winner = player
+                self.ended = True
+                return True
+    for player in (self.x, self.o):
+        if self.board.trace() = player*LEN:
+            self.winner = player
+            self.ended = True
+            return True
+        if np.fliplr(self.board).trace() == player*LEN:
+            self.winner = player
+            self.ended = True
+            return True
+    if np.all((self.board == 0) == False):
+        self.winner = None
+        self.ended = True
+    self.winner = None
+    return False
+
+
+    drawBoard():
+    
