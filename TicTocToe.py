@@ -84,19 +84,19 @@ class Environment:
         return False
 
 
-    def drawBoard(self):
+    def drawGame(self):
         for i in range(LEN):
-            print ("-----------------------")
+            print ("-------------")
             for j in range(LEN):
-                print (" ")
+                print("  ", end="")
                 if self.board[i,j] == self.x:
-                    print ("x")
+                    print ("x", end="")
                 elif self.board[i,j] == self.o:
-                    print ("o")
+                    print ("o", end="")
                 else:
-                    print (" ")
+                    print (" ", end="")
             print ("")
-        print ("-----------------------")
+        print ("-------------")
     
 
 class Agent:
@@ -166,14 +166,14 @@ class Agent:
                                 print (" |")
                     print ("")
                 print ("-----------------------")
-            environment.board[nextMove[0], nextMove[1]] = self.sym
+            environment.board[nextMove[0], nextMove[1]] = self.symbol
                 
     def updateStateHistory(self,s):
         self.stateHistory.append(s)
     
     
     def update(self,environment):
-        reward = environment.reward(self.sym)
+        reward = environment.reward(self.symbol)
         target = reward
         for prev in reversed(self.stateHistory):
             value = self.V[prev] + self.alpha*(target - self.V[prev])
@@ -192,13 +192,13 @@ class Human:
     def takeAction(self, environment):
         while True:
             
-            move = input("Enter coordinates i,j for your next move (i,j=0,1,2)")
+            move = input("Enter coordinates i,j for your next move (i,j=0,1,2):")
             i,j = move.split(',')
             i = int(i)
             j = int(j)
             
             if environment.isEmpty(i,j):
-                environment.board[i,j] = self.sym
+                environment.board[i,j] = self.symbol
                 break
     
     def update(self,environment):
@@ -274,11 +274,11 @@ def play(player1, player2,environment, draw = False):
         currentPlayer.takeAction(environment)
         
         state = environment.getState()
-        player1.updateState(state)
-        player2.updateState(state)
+        player1.updateStateHistory(state)
+        player2.updateStateHistory(state)
         
     if draw:
-        environment.drawBoard()
+        environment.drawGame()
     
     player1.update(environment)
     player2.update(environment)
@@ -311,7 +311,7 @@ for t in range(T):
 
 
 human = Human()
-human.set_symbol(env.o)
+human.setSymbol(env.o)
 
 while True:
     player1.setVerbose(True)
