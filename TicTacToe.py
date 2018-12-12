@@ -303,7 +303,7 @@ if __name__ == '__main__':
     player1.setSymbol(env.x)
     player2.setSymbol(env.o)
     
-T = 10000
+T = 1000
 for t in range(T):
     if t % 200 == 0:
       print(t)
